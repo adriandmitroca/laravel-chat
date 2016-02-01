@@ -9,6 +9,8 @@ var pusher = new Pusher('3c511981ee118763016d', {
     encrypted: true
 });
 
+window.lock = false;
+
 var chat = pusher.subscribe('chat');
 
 chat.bind('App\\Events\\MessageWasSent', function (data) {
@@ -25,15 +27,20 @@ $('#sendMessage').submit(function (e) {
     var errors = $('.errors');
     errors.hide().text('');
 
-    $.post('chat/new', vm.serialize()).done(function () {
-        vm.find('textarea').val('');
-    }).fail(function (data) {
-        var response = $.parseJSON(data.responseText);
-        errors.show();
-        $.each(response, function (key, value) {
-            errors.append('<p>' + value + '</p>');
+    if (window.lock === false) {
+        window.lock = true;
+        $.post('chat/new', vm.serialize()).done(function () {
+            vm.find('textarea').val('');
+            window.lock = false;
+        }).fail(function (data) {
+            window.lock = false;
+            var response = $.parseJSON(data.responseText);
+            errors.show();
+            $.each(response, function (key, value) {
+                errors.append('<p>' + value + '</p>');
+            });
         });
-    });
+    }
 });
 
 $('textarea').keypress(function (e) {
