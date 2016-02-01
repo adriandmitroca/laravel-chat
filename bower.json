@@ -1,0 +1,22 @@
+{
+  "name": "laravel-chat",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Adrian Dmitroca <dmitroca.adrian@gmail.com>"
+  ],
+  "license": "MIT",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "resources/assets/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass": "^3.3.6"
+  }
+}
