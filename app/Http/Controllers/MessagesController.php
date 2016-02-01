@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\MessageWasSent;
+use App\Http\Requests\StoreMessageRequest;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -26,11 +27,11 @@ class MessagesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param StoreMessageRequest $request
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreMessageRequest $request)
     {
         $message          = new Message;
         $message->content = $request->get('content');

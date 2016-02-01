@@ -22,9 +22,17 @@ chat.bind('App\\Events\\MessageWasSent', function (data) {
 $('#sendMessage').submit(function (e) {
     e.preventDefault();
     var vm = $(this);
+    var errors = $('.errors');
+    errors.hide().text('');
 
     $.post('chat/new', vm.serialize()).done(function () {
         vm.find('textarea').val('');
+    }).fail(function (data) {
+        var response = $.parseJSON(data.responseText);
+        errors.show();
+        $.each(response, function (key, value) {
+            errors.append('<p>' + value + '</p>');
+        });
     });
 });
 

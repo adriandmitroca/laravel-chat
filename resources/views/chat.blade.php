@@ -18,6 +18,8 @@
                 <div class="panel-heading">Talk</div>
 
                 <div class="panel-body">
+                    <div class="alert alert-danger errors" role="alert" style="display: none"></div>
+
                     <form action="{{ action('MessagesController@store') }}" method="POST" id="sendMessage">
                         {{ csrf_field() }}
                         <div class="form-group">
