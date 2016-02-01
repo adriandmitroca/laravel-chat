@@ -13,7 +13,10 @@ var chat = pusher.subscribe('chat');
 
 chat.bind('App\\Events\\MessageWasSent', function (data) {
     $('#messages').append($('<p><strong>' + data.message.author + '</strong> [' + data.message.created_at + ']: ' + data.message.content + '</p>').hide().fadeIn(2000));
-    $('#messages p:first-of-type').fadeOut(2000).remove();
+
+    if ($('#messages p').length > 10) {
+        $('#messages p:first-of-type').fadeOut(2000).remove();
+    }
 });
 
 $('#sendMessage').submit(function (e) {
